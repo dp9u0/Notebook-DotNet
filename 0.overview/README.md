@@ -41,6 +41,8 @@ CLR(Common Language Runtime,公共语言运行时)负责加载与执行程序集
 
 CLR 在不同的.NET平台上有不同的实现.但是作用都是加载与运行程序集.
 
+JIT 功能负责将 IL 语言转换成 Native 代码执行.
+
 ## BCL/FCL
 
 `.NET Standard` 中定义了一系列 `API`,例如 Network, File, System, Thread等操作.
@@ -83,3 +85,7 @@ CLR 允许 不同语言.
 CLS 并不会将这些作为其标准,因此 C# 编译器需要按照CLS 将 async await 编译成符合 CLS规范的IL语言,这样就可以被 VB调用了.
 
 ![Languages offer a subset of the CLR/CTS and a superset of the CLS](../img/0.cls-language-cts.jpg)
+
+## unsafe code
+
+.NET 允许使用 unsafe code 直接操作内存.
