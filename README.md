@@ -25,25 +25,26 @@
     * 委托
   * 基础类型 引用类型 值类型
   * 类型成员
-    * construct
+    * Construct
     * Filed
     * Property
     * Method
     * Event
   * 可访问性与修饰符
-    * 访问性
-  * 泛型
-  * 逆变与协变
-  * Delegate Lambda
-    * Func<>
-    * Action<>
-    * Predicate<>
+  * 接口
+  * 泛型  
   * 类型转换
   * 类型格式化
   * String
+  * Enum  
+  * Array
+  * Delegate与Lambda
+    * Func<>
+    * Action<>
+    * Predicate<>
+  * 逆变与协变
   * Attribute
-  * Assembly
-  * 互操作性
+
 * [CSharp](./2.csharp/README.md)
 
   > .NET 中用的最多的是 C#,并且 C# 语言特性非常优秀.这里结合 C# 介绍 CLR 的 CLS.并介绍 C# 的一些独有的语言特性.
@@ -54,23 +55,24 @@
 
   * 垃圾回收
   * Runtime
-  * AppDomain
-  * IL
-* [BCL](./4.bcl/README.md)
+  * AppDomain与Assembly
+  * IL  
+  * 互操作性
+* [异步与多线程](./4.async&thread/README.md)
+* [BCL](./5.bcl/README.md)
 
   > BCL 提供了大量的类库 例如集合,并行库,Linq等 这一章节将对这些丰富的类库进行选择介绍
 
   * 集合
   * Emit
-  * 并发
   * LINQ
   * Expression
 
-* Application
+* 应用框架
 
   > MS 提供了一系列 FCL 供开发者使用构建大型应用程序,这个章节介绍这些构建应用的类库: FCL
 
-  * [ASP.NET](./5.asp.net/README.md)
   * [WCF](./6.wcf/README.md)
   * [WPF](./7.wpf/README.md)
-  * [Entity Framework](./8.ef/README.md)
+  * [Entity Framework](./8.ef/README.md)  
+  * [ASP.NET](./9.asp.net/README.md)
