@@ -11,6 +11,8 @@ namespace Run {
             Console.WriteLine("Hello World!");
             new AllDerivedFromObjectRunner().Run();
             new PrimitiveTypeRunner().Run();
+            new ValueAndReferenceTypeRunner().Run();
+            new ValueTypeLayoutRunner().Run();
             new ConvertRunner().Run();
         }
     }

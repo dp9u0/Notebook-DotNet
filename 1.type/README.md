@@ -6,9 +6,9 @@
   * [类型概述](#%E7%B1%BB%E5%9E%8B%E6%A6%82%E8%BF%B0)
   * [常见类型](#%E5%B8%B8%E8%A7%81%E7%B1%BB%E5%9E%8B)
     * [Primitive](#primitive)
-    * [ReferenceType](#referencetype)
-    * [ValueType](#valuetype)
+    * [引用类型与值类型](#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%80%BC%E7%B1%BB%E5%9E%8B)
     * [box-unbox](#box-unbox)
+    * [Equals和GetHashCode](#equals%E5%92%8Cgethashcode)
     * [dynamic](#dynamic)
 
 ## 类型概述
@@ -91,10 +91,59 @@ Single s = i; // cast from Int32 to Single
 
 * check uncheck
 
-### ReferenceType
+```cs
+unchecked {
+    // Start of checked block
+    Byte b = 100;
+    // add
+    b = (Byte) (b + 200); // This expression is checked for overflow.
+    Console.WriteLine(b);
+} // End of checked block
+```
 
-### ValueType
+### 引用类型与值类型
+
+CLR 支持两种类型:引用类型和值类型,引用类型在堆中分配,值类型可能分配在栈中(局部变量),也可能作为引用类型的字段分配在堆中.
+
+```cs
+// IL_0001: newobj instance void Type.ValueAndReferenceTypeRunner/ClassType::.ctor()
+ClassType r1 = new ClassType();
+// IL_0009: initobj  Type.ValueAndReferenceTypeRunner/StructType
+// initobj 将位于指定地址的值类型的每个字段初始化为空引用或适当的基元类型的 0
+StructType s1 = new StructType();
+// 如果使用下面声明,虽然 s0已经分配了空间,但是由于没有调用initobj初始化依旧会编译错误
+// StructType s0;
+// Int32 a = s0.x; // error CS0170: Use of possibly unassigned field 'x
+```
+
+[引用类型与值类型Demo](../src/Type/ValueAndReferenceTypeRunner.cs)
+
+当满足以下条件可以声明为值类型否则建议引用类型:
+
+* 较小(16bytes以下)或者较大但是不用作方法调用,仅在本地方法内部使用:值拷贝开销
+* 不可变
+* 不继承不派生
+
+值类型赋值是字段赋值,引用类型仅仅是引用地址赋值.
+
+可以控制值类型字段的布局:
+
+```cs
+[StructLayout(LayoutKind.Explicit)]
+internal struct SomeValType2 {
+    public SomeValType2(Byte b,Int16 x) {
+        X = x;
+        B = b;
+    }
+    [FieldOffset(0)] public readonly Byte B; // The  B and X fields overlap each
+    [FieldOffset(0)] public readonly Int16 X; // other in instances of this type
+}
+// SomeValType2 type2 = new SomeValType2(8,256);
+// Console.WriteLine(type2.X); // 264 = 256 + 8
+```
 
 ### box-unbox
+
+### Equals和GetHashCode
 
 ### dynamic
