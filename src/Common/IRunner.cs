@@ -6,7 +6,8 @@ namespace Common {
     public abstract class Runner {
 
         public void Run() {
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"----------{this.GetType().Name} Run----------");
             Console.ResetColor();
             RunCore();
