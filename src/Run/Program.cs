@@ -1,7 +1,11 @@
 ﻿#region
 
 using CLR;
-using System;
+using Collection;
+using CSharp;
+using Linq;
+using RuntimeCompiler;
+using Thread;
 using Type;
 
 #endregion
@@ -9,16 +13,13 @@ using Type;
 namespace Run {
     class Program {
         static void Main() {
-            RunTypeRunner();
-            RunILRunner();
-        }
-
-        private static void RunTypeRunner() {
-            new TypeRunner().Run() ;
-        }
-
-        private static void RunILRunner() {
+            new TypeRunner().Run();
+            new CSharpRunner().Run();
             new ClrRunner().Run();
+            new ThreadRunner().Run();
+            new CollectionRunner().Run();
+            new LinqRunner().Run();
+            new RuntimeCompilerRunner().Run();
         }
     }
 }

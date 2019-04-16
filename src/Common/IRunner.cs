@@ -6,11 +6,14 @@ namespace Common {
     public abstract class Runner {
 
         public void Run() {
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"----------{this.GetType().Name} Run----------");
             Console.ResetColor();
-            RunCore();
+            try {
+                RunCore();
+            } catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
         }
         /// <summary>
         /// Run

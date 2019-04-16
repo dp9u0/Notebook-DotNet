@@ -64,11 +64,10 @@
   > BCL 提供了大量的类库 例如集合,并行库,Linq等 这一章节将对这些丰富的类库进行选择介绍
 
   * 集合
-  * Emit
   * LINQ
-  * Expression
+  * 运行时编译 : Emit Expression CallSite
 
-* 应用框架
+* FCL
 
   > MS 提供了一系列 FCL 供开发者使用构建大型应用程序,这个章节介绍这些构建应用的类库: FCL
 

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,7 +7,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CLR\CLR.csproj" />
+    <ProjectReference Include="..\Collection\Collection.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\CSharp\CSharp.csproj" />
+    <ProjectReference Include="..\Linq\Linq.csproj" />
+    <ProjectReference Include="..\RuntimeCompiler\RuntimeCompiler.csproj" />
+    <ProjectReference Include="..\Thread\Thread.csproj" />
     <ProjectReference Include="..\Type\Type.csproj" />
   </ItemGroup>
 
