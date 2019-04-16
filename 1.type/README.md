@@ -8,7 +8,7 @@
     * [Primitive](#primitive)
     * [引用类型与值类型](#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%80%BC%E7%B1%BB%E5%9E%8B)
     * [box-unbox](#box-unbox)
-    * [Equals和GetHashCode](#equals%E5%92%8Cgethashcode)
+    * [Equals ReferenceEquals GetHashCode](#equals-referenceequals-gethashcode)
     * [dynamic](#dynamic)
 
 ## 类型概述
@@ -162,6 +162,45 @@ object o1 = x1; // boxing the int
 int x2 = (int)o1; // unboxing o1
 ```
 
-### Equals和GetHashCode
+### Equals ReferenceEquals GetHashCode
+
+`Object.Equals`(相等性) 可以被重载,默认实现为 `Object.ReferenceEquals` (同一性)
+
+`ValueType` 则对 `Equals` 进行了重载,利用反射机制对每个字段进行 `Object.Equals` 调用.当然这是在 VlaueType 持有对象引用字段的情况下.
+
+如果 `ValueType` 字段全部都是值类型,那么可以直接调用内存比较.
+
+重写 `Equals` 就必须重写 `GetHashCode`,保证两者相等性一致.相等的对象拥有相同的`HashCode`.
 
 ### dynamic
+
+C# 允许使用`dynamic`动态创建动态类型,编译器不需要确定变量的具体类型,运行期判断和获取值.
+
+```cs
+dynamic val = new DynamicType1();
+String vf1 = val.Filed1;
+Console.WriteLine(vf1);
+val = new DynamicType2();
+Console.WriteLine(val.Filed2);
+```
+
+编译阶段会生成将 dynamic 通过 CallSite 功能在运行阶段生成委托,可以通过生成的委托执行获取/设置字段,调用方法等操作.
+
+```cs
+object val = new DynamicRunner.DynamicType1();
+if (DynamicRunner.<>o__3.<>p__1 == null)
+{
+  DynamicRunner.<>o__3.<>p__1 = CallSite<Func<CallSite, object, string>>.Create(Binder.Convert(CSharpBinderFlags.None, typeof(string), typeof(DynamicRunner)));
+}
+Func<CallSite, object, string> target = DynamicRunner.<>o__3.<>p__1.Target;
+CallSite <>p__ = DynamicRunner.<>o__3.<>p__1;
+if (DynamicRunner.<>o__3.<>p__0 == null)
+{
+  DynamicRunner.<>o__3.<>p__0 = CallSite<Func<CallSite, object, object>>.Create(Binder.GetMember(CSharpBinderFlags.None, "Filed1", typeof(DynamicRunner), new CSharpArgumentInfo[]
+  {
+    CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null)
+  }));
+}
+string vf = target(<>p__, DynamicRunner.<>o__3.<>p__0.Target(DynamicRunner.<>o__3.<>p__0, val));
+Console.WriteLine(vf);
+      ```
