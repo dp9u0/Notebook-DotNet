@@ -11,6 +11,10 @@
     * [Equals ReferenceEquals GetHashCode](#equals-referenceequals-gethashcode)
     * [dynamic](#dynamic)
   * [类型成员](#%E7%B1%BB%E5%9E%8B%E6%88%90%E5%91%98)
+    * [字段](#%E5%AD%97%E6%AE%B5)
+    * [方法](#%E6%96%B9%E6%B3%95)
+    * [事件](#%E4%BA%8B%E4%BB%B6)
+    * [属性](#%E5%B1%9E%E6%80%A7)
   * [类型修饰符](#%E7%B1%BB%E5%9E%8B%E4%BF%AE%E9%A5%B0%E7%AC%A6)
     * [可访问性](#%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7)
     * [继承与多态](#%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%9A%E6%80%81)
@@ -221,9 +225,122 @@ Console.WriteLine(vf);
 
 ## 类型成员
 
+### 字段
+
+字段是数据的承载,常量,静态字段,实例字段等都可以归为字段,只是在创建和使用时行为有所不同.
+
+常量处理很特殊,声明的常量在使用时,直接会在编译阶段就将值复制过去.
+
+例如
+
+```cs
+/* 0x000007CC 7215010070   */
+// IL_0008: ldstr     "asfasdf"
+/* 0x000007D1 7D0D000004   */
+// IL_000D: stfld     string Type.FieldRunner / SomeType::Field2
+val.Field2 = SomeType.Field1; // Field1 is a constant
+```
+
+[字段Demo](../src/Type/TypeMember.FieldRunner.cs)
+
+因此如果当前程序及引用另一个程序集的常量,如果更新了这个常量,当前程序集也需要重新编译,哪怕没有任何代码变化.
+
+非常量字段分为类型(static)和实例(默认)两种.在CLR中会根据两种情况在不同的区域分配内存.在介绍CLR时会详细探讨这一点.
+
+### 方法
+
+方法是行为.用于改变字段.
+
+调用方法时,需要传入参数,而CLR中实例方法调用会将实例作为第一个参数传入.
+
+调用方法主要通过两个指令进行:
+
+* call : 不做任何检查,一般用作静态方法调用,或者 this确定不为空的非虚方法调用.
+* callvirt : 检查 this,如果是调用虚方法,需要调用实例实际类型的方法表中的方法.
+
+callvirt 实际使用比看上去范围更广:不仅仅是调用虚方法时.
+
+```cs
+private void CallVirt() {
+    SomeType val = new SomeType();
+    // callvirt  instance void Type.MethodRunner/BaseType::MethodVirtual()
+    val.MethodVirtual();
+}
+
+private void CallVirt2() {
+    // callvirt  instance void Type.MethodRunner/BaseType::MethodVirtual()
+    BaseType val = new SomeType();
+    val.MethodVirtual();
+}
+
+private void CallStatic() {
+    // call void Type.MethodRunner/BaseType::MethodStatic()
+    BaseType.MethodStatic();
+}
+
+private void CallMethod() {
+    //  NOTE: callvirt 可以检查 this 是否为 null
+    // 哪怕 Method 不使用 this;
+    // callvirt  instance void Type.MethodRunner/SomeType::Method()
+    var val = new SomeType();
+    val.Method();
+}
+
+private void CallMethod2() {
+    // 这种情况下确定this不为空
+    // call instance void Type.MethodRunner/SomeType::Method()
+    new SomeType().Method();
+}
+
+public class BaseType {
+    public static void MethodStatic() { }
+    public virtual void MethodVirtual() { }
+}
+
+public class SomeType : BaseType {
+    public void Method() { }
+    public override void MethodVirtual() {
+        // 虚方法中调用 base方法,防止递归调用
+        // call instance void Type.MethodRunner/BaseType::MethodVirtual()
+        base.MethodVirtual();
+    }
+}
+```
+
+CLR 中类型成员实际只有 字段和方法两种.
+
+至于 C# 中的属性事件构造方法等都可以看做是C#的对CLR功能包装而提供的语法糖.
+
+### 事件
+
+通过反编译可以看到,事件类型(`EventHandler`)实际是一个 `MulticastDelegate` 的派生类.
+
+通过 event 声明类型成员,会
+
+1. 声明`EventHandler` 类型的私有字段.
+2. 自动 addEvent 和 removeEvent,合并字段.
+3. 播发事件实际调用的是  EventHandler 的实例方法 `Invoke()`;
+
+这样就可以通过 C# 代码中的 运算符 `+=` `-=` 调用这两个方法了
+
+[事件](../src/Type/TypeMember.EventRunner.cs)
+
+### 属性
+
+C# 定义的属性实际会被编译成 set_Property 和 getProperty 两个方法.
+
+并且根据需要创建 backField
+
+[属性](../src/Type/TypeMember.PropertyRunner.cs)
+
 ## 类型修饰符
 
 ### 可访问性
+
+* public
+* internal
+* protected
+* private
 
 ### 继承与多态
 

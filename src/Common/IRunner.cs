@@ -19,5 +19,10 @@ namespace Common {
         /// Run
         /// </summary>
         protected abstract void RunCore();
+
+        public static void RunRunner<T>() where T : Runner, new() {
+            new T().Run();
+        }
     }
+
 }
