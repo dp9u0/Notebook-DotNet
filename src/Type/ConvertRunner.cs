@@ -3,8 +3,9 @@ using System;
 using Common;
 
 namespace Type {
-    public class ConvertRunner : IRunner {
-        public void Run() {
+    public class ConvertRunner : Runner {
+
+        protected override void RunCore() {
             ClassSecond value = new ClassFirst();
             ClassFirst value2 = (ClassFirst)new ClassSecond();
             Object value4 = new ClassFirst();
@@ -12,6 +13,7 @@ namespace Type {
         }
 
         public class ClassFirst {
+
             public static explicit operator ClassFirst(ClassSecond second) {
                 Console.WriteLine("ClassSecond explicit convert to ClassFirst");
                 return new ClassFirst();

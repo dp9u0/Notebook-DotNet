@@ -10,7 +10,7 @@ namespace Type {
     /// <summary>
     /// 
     /// </summary>
-    public class AllDerivedFromObjectRunner : IRunner {
+    public class AllDerivedFromObjectRunner : Runner {
         /// <summary>
         ///     Declare delegate us key word 'delegate' instead of 'extends MulticastDelegate'
         ///     <example>
@@ -51,7 +51,7 @@ namespace Type {
 
         /// <summary>
         /// </summary>
-        public void Run() {
+        protected override void RunCore() {
             Console.WriteLine("Nothing to run");
         }
 

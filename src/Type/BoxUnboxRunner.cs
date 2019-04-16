@@ -3,8 +3,8 @@ using System;
 using System.Reflection.Emit;
 
 namespace Type {
-    public class BoxUnboxRunner : IRunner {
-        public void Run() {
+    public class BoxUnboxRunner : Runner {
+        protected override void RunCore() {
             {
                 int x1 = 9;
                 /* 0x0000027A 8C15000001  IL_0006: box System.Int32 */

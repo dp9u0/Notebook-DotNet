@@ -7,8 +7,8 @@ using Common;
 #endregion
 
 namespace Type {
-    public class ValueTypeLayoutRunner : IRunner {
-        public void Run() {
+    public class ValueTypeLayoutRunner : Runner {
+        protected override void RunCore() {
             SomeValType2 type2 = new SomeValType2(8,256);
             Console.WriteLine(type2.X); // 264 = 256 + 8
         }

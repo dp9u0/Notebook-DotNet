@@ -6,8 +6,8 @@ using Common;
 #endregion
 
 namespace Type {
-    public class ValueAndReferenceTypeRunner : IRunner {
-        public void Run() {
+    public class ValueAndReferenceTypeRunner : Runner {
+        protected override void RunCore() {
             // IL_0001: newobj instance void Type.ValueAndReferenceTypeRunner/ClassType::.ctor()
             ClassType r1 = new ClassType();
             // IL_0009: initobj  Type.ValueAndReferenceTypeRunner/StructType

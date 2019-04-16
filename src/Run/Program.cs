@@ -8,22 +8,17 @@ using Type;
 
 namespace Run {
     class Program {
-        static void Main(string[] args) {
-            //RunTypeRunner();
+        static void Main() {
+            RunTypeRunner();
             RunILRunner();
         }
 
         private static void RunTypeRunner() {
-            new AllDerivedFromObjectRunner().Run();
-            new PrimitiveTypeRunner().Run();
-            new ValueAndReferenceTypeRunner().Run();
-            new ValueTypeLayoutRunner().Run();
-            new ConvertRunner().Run();
-            new BoxUnboxRunner().Run();
+            new TypeRunner().Run() ;
         }
 
         private static void RunILRunner() {
-            new AllILCodeRunner().Run();
+            new ClrRunner().Run();
         }
     }
 }

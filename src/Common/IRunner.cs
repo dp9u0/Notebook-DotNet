@@ -1,11 +1,19 @@
-﻿namespace Common {
+﻿using System;
+
+namespace Common {
     /// <summary>
     /// </summary>
-    public interface IRunner {
+    public abstract class Runner {
 
+        public void Run() {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"----------{this.GetType().Name} Run----------");
+            Console.ResetColor();
+            RunCore();
+        }
         /// <summary>
         /// Run
         /// </summary>
-        void Run();
+        protected abstract void RunCore();
     }
 }

@@ -6,8 +6,8 @@ using Common;
 #endregion
 
 namespace Type {
-    public class PrimitiveTypeRunner : IRunner {
-        public void Run() {
+    public class PrimitiveTypeRunner : Runner {
+        protected override void RunCore() {
             Console.WriteLine("Nothing to run");
             SameCode();
             DonnotUsePrimitiveType();
