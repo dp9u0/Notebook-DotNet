@@ -8,7 +8,6 @@ using Common;
 namespace Type {
     public class PrimitiveTypeRunner : Runner {
         protected override void RunCore() {
-            Console.WriteLine("Nothing to run");
             SameCode();
             DonnotUsePrimitiveType();
             ImplicitConvert();
@@ -57,8 +56,8 @@ namespace Type {
                     Console.WriteLine(b);
                 } // End of checked block
             }
-            catch (Exception e) {
-                Console.WriteLine(e);
+            catch (Exception) {
+                Console.WriteLine("Convert 100+200(Int32) to Byte Should Throw Exception");
             }
         }
 
