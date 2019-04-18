@@ -17,11 +17,12 @@
       * [方法参数](#%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0)
     * [事件](#%E4%BA%8B%E4%BB%B6)
     * [属性](#%E5%B1%9E%E6%80%A7)
+      * [索引器](#%E7%B4%A2%E5%BC%95%E5%99%A8)
   * [类型修饰符](#%E7%B1%BB%E5%9E%8B%E4%BF%AE%E9%A5%B0%E7%AC%A6)
     * [可访问性](#%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7)
     * [继承与多态](#%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%9A%E6%80%81)
-  * [接口](#%E6%8E%A5%E5%8F%A3)
   * [泛型](#%E6%B3%9B%E5%9E%8B)
+  * [接口](#%E6%8E%A5%E5%8F%A3)
   * [Number](#number)
   * [String](#string)
   * [Enum](#enum)
@@ -379,6 +380,18 @@ C# 定义的属性实际会被编译成 `set_Property` 和 `get_Property` 两个
 
 [属性](../src/Type/TypeMember.PropertyRunner.cs)
 
+#### 索引器
+
+```cs
+.property instance bool Item(int32 bitPos)
+{
+  // Token: 0x0600004F RID: 79 RVA: 0x00002A58 File Offset: 0x00000C58
+  .get instance bool Type.PropertyRunner/BitArray::get_Item(int32)
+  // Token: 0x06000050 RID: 80 RVA: 0x00002AA4 File Offset: 0x00000CA4
+  .set instance void Type.PropertyRunner/BitArray::set_Item(int32, bool)
+}
+```
+
 ## 类型修饰符
 
 ### 可访问性
@@ -400,9 +413,9 @@ C# 定义的属性实际会被编译成 `set_Property` 和 `get_Property` 两个
 * virtual : 虚方法,可能被重写
 * sealed : 不可派生/ sealed override (方法不可被派生类重写)
 
-## 接口
-
 ## 泛型
+
+## 接口
 
 ## Number
 
