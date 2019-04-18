@@ -18,6 +18,7 @@ namespace Type {
             RunRunner<TypeMemberRunner>();
             RunRunner<FieldRunner>();
             RunRunner<MethodRunner>();
+            RunRunner<MethodRunner2>();
             RunRunner<PropertyRunner>();
             RunRunner<EventRunner>();
         }

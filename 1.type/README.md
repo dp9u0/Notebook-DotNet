@@ -13,6 +13,8 @@
   * [类型成员](#%E7%B1%BB%E5%9E%8B%E6%88%90%E5%91%98)
     * [字段](#%E5%AD%97%E6%AE%B5)
     * [方法](#%E6%96%B9%E6%B3%95)
+      * [特殊方法](#%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95)
+      * [方法参数](#%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0)
     * [事件](#%E4%BA%8B%E4%BB%B6)
     * [属性](#%E5%B1%9E%E6%80%A7)
   * [类型修饰符](#%E7%B1%BB%E5%9E%8B%E4%BF%AE%E9%A5%B0%E7%AC%A6)
@@ -307,6 +309,50 @@ public class SomeType : BaseType {
 }
 ```
 
+#### 特殊方法
+
+* 实例构造器 实例构造方法
+* 类型构造器 静态构造方法
+* 操作符方法
+
+```cs
+public static SomeType operator +(SomeType first, SomeType second)
+{
+  return first;
+}
+```
+
+* 转换操作符
+
+```cs
+public static implicit operator SomeType(int val)
+{
+  return new SomeType();
+}
+
+public static explicit operator SomeType(string val)
+{
+  return new SomeType();
+}
+```
+
+* 扩展方法 : static(this)
+* 分部方法 : 在 partial类中实现
+
+#### 方法参数
+
+* 可选参数和命名参数
+* out ref : 按引用传递
+
+```cs
+string val = "111";
+/* 0x000008B8 1200         IL_0008: ldloca.s  val*/
+/* 0x000008BA 2821000006   IL_000A: call      instance void Type.MethodRunner3::RefMethd(string&)*/
+RefMethd(ref val);
+```
+
+* params
+
 CLR 中类型成员实际只有 字段和方法两种.
 
 至于 C# 中的属性事件构造方法等都可以看做是C#的对CLR功能包装而提供的语法糖.
@@ -327,7 +373,7 @@ CLR 中类型成员实际只有 字段和方法两种.
 
 ### 属性
 
-C# 定义的属性实际会被编译成 set_Property 和 getProperty 两个方法.
+C# 定义的属性实际会被编译成 `set_Property` 和 `get_Property` 两个方法.
 
 并且根据需要创建 backField
 
@@ -337,17 +383,22 @@ C# 定义的属性实际会被编译成 set_Property 和 getProperty 两个方�
 
 ### 可访问性
 
-* public
-* internal
-* protected
-* private
+* public : 所有
+* protected internal : protected or internal
+* internal : 程序集
+* private protected : private or (internal protected)
+* protected : private + 派生类型
+* private : 类型和嵌套类型中访问
 
 ### 继承与多态
 
-* overload
-* virtual
-* override
-* new
+* new : 覆盖
+* override : 重写,重写基类的 virtual abstract 方法.
+* overload : 方法名相同但是参数不同,重载
+
+* abstract : 抽象方法,必须被重写
+* virtual : 虚方法,可能被重写
+* sealed : 不可派生/ sealed override (方法不可被派生类重写)
 
 ## 接口
 
@@ -365,6 +416,8 @@ C# 定义的属性实际会被编译成 set_Property 和 getProperty 两个方�
 
 * Cast
 * Coercion
+
+自定义转换定义位置,A->B 定义在类型C中 : 用户定义的转换必须是转换成封闭类型，或者从封闭类型转换 (CS0556)
 
 ## 类型格式化
 
