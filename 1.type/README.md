@@ -22,6 +22,8 @@
     * [可访问性](#%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7)
     * [继承与多态](#%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%9A%E6%80%81)
   * [泛型](#%E6%B3%9B%E5%9E%8B)
+    * [逆变与协变](#%E9%80%86%E5%8F%98%E4%B8%8E%E5%8D%8F%E5%8F%98)
+    * [泛型约束](#%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F)
   * [接口](#%E6%8E%A5%E5%8F%A3)
   * [Number](#number)
   * [String](#string)
@@ -415,6 +417,35 @@ C# 定义的属性实际会被编译成 `set_Property` 和 `get_Property` 两个
 
 ## 泛型
 
+1. `ing DateTimeList = System.Collections.Generic.List<System.DateTime>;` 简化代码
+2. 泛型代码爆炸 : 确定类型参数后JIT会对泛型编译为不同的类型参数组合生成不同的代码.这回导致泛型代码爆炸.
+   1. 如果类型参数是引用类型,CLR会复用JIT代码.这是由于引用类型都是64位地址,具有类似的逻辑
+   2. 但是如果是值类型则无法避免的会出现代码爆炸问题.
+
+* 泛型接口
+* 泛型委托
+* 泛型方法 : 类型推断
+
+### 逆变与协变
+
+通过逆变和协变可以将类型相同但是类型参数不同的泛型进行转换.
+
+```cs
+Func<Object, ArgumentException> fn1 = null;
+Func<String, Exception>fn2 = fn1; // No explicit cast is required here
+Exception e = fn2("");
+```
+
+* Invariant 不变量
+* Contra-variant 逆变量,in,作为参数等输入
+* Covariant 协变量,out,作为返回值等输出
+
+### 泛型约束
+
+* 主要约束 : 主要约束可以是一个引用类型,class或者struct,如果指定一个引用类型,则实参必须是该类型或者该类型派生类型,class规定实参必须是一个引用类型.struct规定了参数必须是一个结构
+* 次要约束 : 次要约束规定了参数必须实现所有次要约束中规定的接口
+* 构造器约束 : 约束必须实现默认构造器
+  
 ## 接口
 
 ## Number

@@ -21,6 +21,7 @@ namespace Type {
             RunRunner<MethodRunner2>();
             RunRunner<PropertyRunner>();
             RunRunner<EventRunner>();
+            RunRunner<GenericsRunner>();
         }
     }
 }
