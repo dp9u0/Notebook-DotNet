@@ -448,6 +448,10 @@ Exception e = fn2("");
   
 ## 接口
 
+* 显示隐式实现接口
+* 实现的多个接口拥有相同的方法签名
+* 基类 or 接口 : IS-A , CAN-DO
+
 ## Number
 
 ## String
