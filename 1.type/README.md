@@ -498,9 +498,68 @@ CLR内部维护Hash表,用作字符留用,程序集加载时,会默认将所有�
 
 ## Delegate
 
+delegate 关键字实际会创建一个委托类派生自 MulticastDelegate
+
+```cs
+.class nested public auto ansi sealed DelegateType
+    extends [netstandard]System.MulticastDelegate
+  {
+    // Methods
+    // Token: 0x0600003A RID: 58
+    .method public hidebysig specialname rtspecialname
+      instance void .ctor (
+        object 'object',
+        native int 'method'
+      ) runtime managed
+    {
+    } // end of method DelegateType::.ctor
+
+    // Token: 0x0600003C RID: 60
+    .method public hidebysig newslot virtual
+      instance class [netstandard]System.IAsyncResult BeginInvoke (
+        object arg,
+        class [netstandard]System.AsyncCallback callback,
+        object 'object'
+      ) runtime managed
+    {
+    } // end of method DelegateType::BeginInvoke
+
+    // Token: 0x0600003D RID: 61
+    .method public hidebysig newslot virtual
+      instance object EndInvoke (
+        class [netstandard]System.IAsyncResult result
+      ) runtime managed
+    {
+    } // end of method DelegateType::EndInvoke
+
+    // Token: 0x0600003B RID: 59
+    .method public hidebysig newslot virtual
+      instance object Invoke (
+        object arg
+      ) runtime managed
+    {
+    } // end of method DelegateType::Invoke
+
+  } // end of class DelegateType
+```
+
+MulticastDelegate 中三个重要字段:
+
+* _target : method 调用的this值
+* _methodPtr : method
+* _invocationList : 委托链
+
+不要自己定义委托:
+
 * Func<>
 * Action<>
 * Predicate<>
+
+C# 对委托进行了简化:
+
+* 无需定义委托对象
+* 不需要定义回调(lambda)
+* 局部变量可以访问(closure)
 
 ## Type Convert
 
