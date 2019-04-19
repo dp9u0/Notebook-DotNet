@@ -29,9 +29,9 @@
   * [String](#string)
   * [Enum](#enum)
   * [Array](#array)
+  * [Delegate](#delegate)
   * [Type Convert](#type-convert)
   * [类型格式化](#%E7%B1%BB%E5%9E%8B%E6%A0%BC%E5%BC%8F%E5%8C%96)
-  * [Delegate](#delegate)
   * [Attribute](#attribute)
 
 ## 类型概述
@@ -492,6 +492,16 @@ CLR内部维护Hash表,用作字符留用,程序集加载时,会默认将所有�
 
 ## Array
 
+* 数组转型 : 不存在的,请使用Array.Copy(). 而且 Copy 还可以自动调整宽度 `Int32[] -> Double[]`
+* 所有数组隐式派生自 System.Array ,并且C#会默认实现 IList等接口 `FileStream [] fileStreams;`
+* 不安全数组访问
+
+## Delegate
+
+* Func<>
+* Action<>
+* Predicate<>
+
 ## Type Convert
 
 * Cast
@@ -502,11 +512,5 @@ CLR内部维护Hash表,用作字符留用,程序集加载时,会默认将所有�
 自定义转换定义位置,A->B 定义在类型C中 : 用户定义的转换必须是转换成封闭类型，或者从封闭类型转换 (CS0556)
 
 ## 类型格式化
-
-## Delegate
-
-* Func<>
-* Action<>
-* Predicate<>
 
 ## Attribute
