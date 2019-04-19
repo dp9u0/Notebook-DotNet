@@ -454,7 +454,39 @@ Exception e = fn2("");
 
 ## Number
 
+* System.SByte(sbyte)
+* System.Int16(short)
+* System.Int32(int)
+* System.Int64(long)
+* System.Byte(byte)
+* System.UInt16(ushort)
+* System.UInt32(uint)
+* System.UInt64(ulong)
+* IEEE 浮点数 : System.Single(float) System.Double(double)
+* System.Decimal(decimal)
+* SIMD : Vector2,Vector3,Vector4,Matrix3x2,Matrix4x4 等
+
 ## String
+
+* 字符串是不可变的
+* 字面量字符串拼接,编译器在编译阶段就会拼接好,但是如果是非字面量,每个拼接运算都需要在堆中申请新的对象.这样比较浪费,因此需要用 `StringBuilder`
+* 另外一个不要使用字符串拼接(+ or Concat)的原因是: 值类型和字符串拼接会装箱.Concat() 参数都是Object类型.而 StringBuilder 定义了各种参数类型的 Append();
+* String Intering
+
+```cs
+var str1 = "aaaa";
+var str2 = "aaaa";
+var str3 = "aa";
+var str4 = str3 + str3;
+var str5 = String.Intern(str3 + str3); // Intering
+Console.WriteLine(Object.ReferenceEquals(str1, str2));// TRUE
+Console.WriteLine(Object.ReferenceEquals(str4, str2));// FALSE
+Console.WriteLine(Object.ReferenceEquals(str5, str2));// TRUE
+```
+
+CLR内部维护Hash表,用作字符留用,程序集加载时,会默认将所有字面量留用(`Intering`)
+
+* StringBuilder : 通过 fixed代码 直接内存copy `string.wstrcpy(destPtr, valuePtr, valueLen);`
 
 ## Enum
 
@@ -464,6 +496,8 @@ Exception e = fn2("");
 
 * Cast
 * Coercion
+* IConvertible
+* Convert
 
 自定义转换定义位置,A->B 定义在类型C中 : 用户定义的转换必须是转换成封闭类型，或者从封闭类型转换 (CS0556)
 

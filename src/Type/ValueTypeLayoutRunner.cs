@@ -9,7 +9,7 @@ using Common;
 namespace Type {
     public class ValueTypeLayoutRunner : Runner {
         protected override void RunCore() {
-            SomeValType2 type2 = new SomeValType2(8,256);
+            SomeValType2 type2 = new SomeValType2(8, 256);
             Console.WriteLine(type2.X); // 264 = 256 + 8
         }
 
@@ -23,7 +23,7 @@ namespace Type {
 
         [StructLayout(LayoutKind.Explicit)]
         internal struct SomeValType2 {
-            public SomeValType2(Byte b,Int16 x) {
+            public SomeValType2(Byte b, Int16 x) {
                 X = x;
                 B = b;
             }

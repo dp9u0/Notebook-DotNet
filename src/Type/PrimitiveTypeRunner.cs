@@ -34,8 +34,8 @@ namespace Type {
             Int32 i = 5; // Implicit cast from Int32 to Int32 
             Int64 l = i; // Implicit cast from Int32 to Int64 
             Single s = i; // Implicit cast from Int32 to Single 
-            Byte b = (Byte) i; // Explicit cast from Int32 to Byte 
-            Int16 v = (Int16) s; // Explicit cast from Single to Int16
+            Byte b = (Byte)i; // Explicit cast from Int32 to Byte 
+            Int16 v = (Int16)s; // Explicit cast from Single to Int16
         }
 
         private static void CompilerDoForPrimitiveType() {
@@ -52,11 +52,10 @@ namespace Type {
                     // Start of checked block 
                     Byte b = 100;
                     // add.ovf
-                    b = (Byte) (b + 200); // This expression is checked for overflow. 
+                    b = (Byte)(b + 200); // This expression is checked for overflow. 
                     Console.WriteLine(b);
                 } // End of checked block
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 Console.WriteLine("Convert 100+200(Int32) to Byte Should Throw Exception");
             }
         }
@@ -66,7 +65,7 @@ namespace Type {
                 // Start of checked block 
                 Byte b = 100;
                 // add
-                b = (Byte) (b + 200); // This expression is checked for overflow. 
+                b = (Byte)(b + 200); // This expression is checked for overflow. 
                 Console.WriteLine(b);
             } // End of checked block
         }
