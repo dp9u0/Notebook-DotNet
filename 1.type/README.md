@@ -563,13 +563,21 @@ C# 对委托进行了简化:
 
 ## Type Convert
 
-* Cast
-* Coercion
-* IConvertible
-* Convert
+类型转换分为下面几种情况,对于CLR来说,类型转换有两种情况 : castclass 这可以称为`铸形`.
 
-自定义转换定义位置,A->B 定义在类型C中 : 用户定义的转换必须是转换成封闭类型，或者从封闭类型转换 (CS0556)
+另外一种情况是 conv,对数字进行转换.
+
+C#通过转换操作符等方法扩展了类型转换的含义,实际还是通过方法调用的方式实现类型转换,这部分称为`强制`.
+
+* 引用类型转换 : castclass 派生类->基类(接口), 基类(接口)->派生类
+* 数值类型转换 : conv
+* operator : Implicit Explicit ,自定义转换定义位置,A->B 定义在类型C中 : 用户定义的转换必须是转换成封闭类型，或者从封闭类型转换 (CS0556)
+* IConvertible : 定义转换到Primitive类型的方法
+* Convert : Primitive类型 之间互相转换
+* TypeConverter : 提供一种将值的类型转换为其他类型以及访问标准值和子属性的统一方法
 
 ## 类型格式化
 
 ## Attribute
+
+[属性](../src/Type/AttributeRunner.cs)
