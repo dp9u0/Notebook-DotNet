@@ -24,6 +24,7 @@ namespace Type {
             RunRunner<GenericsRunner>();
             RunRunner<InterfaceRunner>();
             RunRunner<StringRunner>();
+            RunRunner<FormatRunner>();
         }
     }
 }

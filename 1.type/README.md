@@ -578,6 +578,19 @@ C#通过转换操作符等方法扩展了类型转换的含义,实际还是通�
 
 ## 类型格式化
 
+* IFormattable
+  * public string ToString (string format, IFormatProvider formatProvider);
+    * format : 格式说明符,例如 标准说明符'G', 自定义 '#,##0.0'
+    * formatProvider : 用于获取当前区域性的 IFormatProvider 对象,例如数字格式化会GetFormat(typeof(NumberFormatInfo))
+* IFormatProvider
+  * System.Globalization.CultureInfo : 用于获取 CurrentCultureInfp 下的 DateTimeFormatInfo 和 NumberFormatInfo
+  * System.Globalization.DateTimeFormatInfo : 定义了年月日等文本显示内容
+  * System.Globalization.NumberFormatInfo : 定义了小数点,货币符号等
+* ICustomFormatter : 通过 IFormatProvider.GetFormat(typeof(ICustomFormatter)) 获取提供自定义格式化器
+  * Format(String, Object, IFormatProvider)
+
+[属性](../src/Type/FormatRunner.cs)
+
 ## Attribute
 
 [属性](../src/Type/AttributeRunner.cs)
