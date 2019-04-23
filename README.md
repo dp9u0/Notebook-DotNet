@@ -53,12 +53,15 @@
 
   > CLR 实现不仅仅包括类型,本章节介绍 CLR 的一些其他细节
 
-  * 垃圾回收
-  * Runtime
-  * AppDomain与Assembly
-  * IL  
+  * Metadata  
   * 互操作性
-* [异步与多线程](./4.async&thread/README.md)
+  * Runtime
+    * Managed Code
+    * Memory : Stack Heap GC
+    * AppDomain  
+
+* [异步多线程与并行](./4.async&thread/README.md)
+
 * [BCL](./5.bcl/README.md)
 
   > BCL 提供了大量的类库 例如集合,并行库,Linq等 这一章节将对这些丰富的类库进行选择介绍
