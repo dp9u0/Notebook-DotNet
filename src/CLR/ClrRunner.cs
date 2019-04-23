@@ -1,4 +1,6 @@
 ﻿using Common;
+using System;
+using System.Reflection;
 
 namespace CLR {
 
@@ -8,6 +10,9 @@ namespace CLR {
     public class ClrRunner : Runner {
         protected override void RunCore() {
             new AllILCodeRunner().Run();
+            RunRunner<PInvokeRunner>();
+            RunRunner<GCRunner>();
+            
         }
     }
 }
