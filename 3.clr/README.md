@@ -92,4 +92,33 @@ GetType 其实利用了类型对象指针
 
 Gen 0 1 2 的内存预算都会根据实际情况进行调节 : 回收的多就会减少,回收的少就会增加,这有一个启发式算法进行调节.
 
+* Finalize
+
+  * 实现终接器的对象在被创建时会放在 `终结列表`中.
+  * 垃圾回收标记阶段,被判断为垃圾的对象会从`终结列表`移除并添加到到 `freachable` 列表等待被终结
+  * 添加到 `freachable` 中的对象被视为标记为可达的,因此被重新标记为可达,不会从托管堆中被移除,而是会被提升到下一代.
+  * 标记完成后,GC线程清理并 compact 托管堆.
+  * 同时CLR终结线程(优先级高)调用 `freachable` 列表中的对象的 Finalize 方法,终结对象,并从 `freachable` 中移除(现在是不可达的了)
+  * 下一代GC时,这些可终结对象作为不可达对象被清除.
+
+[Finalize](../src/CLR/GCRunner.cs)
+
+* Dispose
+  
+  手动提前释放资源.
+  
+  1. 降低GC开销.
+  2. `StreamWriter` `FileStream` 如果被动等待 GC终结,可能导致 `StreamWriter` 来不及向 `FileStream` 中写入数据
+
+[Dispose模式](../src/CLR/DisposeRunner.cs)
+
+* GC API
+
+GC 提供了很多 API 可以用于协助 监控以及干预GC
+
+1. GC.AddMemoryPressure HandleCollector 如果存在大量非托管资源或者个数有限的资源可以让让GC更及时的执行 [Demo](../src/CLR/HandleCollectorRunner.cs)
+2. RegisterForFullGCNotification 监控GC执行 [Demo](../src/CLR/GCNotificationRunner.cs)
+3. ReRegisterForFinalize SuppressFinalize 终结队列 [Demo](../src/CLR/GCNotification.cs)
+4. GCHandler fix WeekReference [Demo](../src/CLR/GCHandlerRunner.cs) WeakReference 实际是对 GCHandler 的封装
+
 ### AppDomain

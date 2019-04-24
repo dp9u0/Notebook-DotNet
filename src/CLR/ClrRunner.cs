@@ -10,9 +10,9 @@ namespace CLR {
     public class ClrRunner : Runner {
         protected override void RunCore() {
             new AllILCodeRunner().Run();
-            RunRunner<PInvokeRunner>();
-            RunRunner<GCRunner>();
-            
+            //RunRunner<PInvokeRunner>();
+            //RunRunner<HandleCollectorRunner>();
+            RunRunner<GCHandlerRunner>();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace CSharp {
         protected override void RunCore() {
             RunRunner<YieldRunner>();
             RunRunner<LambdaRunner>();
-            RunRunner<AsyncRunner>();
+            //RunRunner<AsyncRunner>();
             RunRunner<LinqRunner>();
         }
     }
