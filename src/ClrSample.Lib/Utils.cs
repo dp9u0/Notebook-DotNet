@@ -1,5 +1,5 @@
 ﻿namespace ClrSample.Lib {
-    class Utils {
+    public class Utils {
 
         /// <summary>
         /// 
@@ -8,7 +8,7 @@
         /// <param name="index"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        bool TryGetInt(out int result, int index, params string[] args) {
+        public static bool TryGetInt(out int result, int index, params string[] args) {
             result = 0;
             if (args.Length > index) {
                 return int.TryParse(args[index], out result);
@@ -23,7 +23,7 @@
         /// <param name="index"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        bool Match(string expect, int index, params string[] args) {
+        public static bool Match(string expect, int index, params string[] args) {
             if (args.Length > index) {
                 return string.Equals(expect, args[index]);
             }

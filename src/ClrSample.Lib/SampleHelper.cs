@@ -8,15 +8,14 @@ namespace ClrSample.Lib {
             $"U -gc -n: gc gen <n>\n";
 
         protected override void InvokeCore(params string[] args) {
-            if (args.Length != 0) {
-
-                switch (args[0]) {
-                    case "-g":
-                        GC.Collect();
-                        break;
-                    default:
-                        break;
+            if (Utils.Match("-g", 0, args)) {
+                if (Utils.TryGetInt(out int gen, 1, args)) {
+                    GC.Collect(gen);
+                } else {
+                    GC.Collect();
                 }
+            } else {
+
             }
         }
     }

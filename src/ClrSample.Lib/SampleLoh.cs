@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ClrSample.Lib {
     class SampleLoh : SampleBase {
@@ -29,17 +28,12 @@ namespace ClrSample.Lib {
             "Loh -s: Create Small Object";
 
         protected override void InvokeCore(params string[] args) {
-            if (args.Length == 0) {
-                _payload.Alloc(85001);
+            if (Utils.Match("-r", 0, args)) {
+                _payload.Release();
+            } else if (Utils.Match("-s", 0, args)) {
+                _payload.Alloc(1234);
             } else {
-                switch (args[0]) {
-                    case "-r":
-                        _payload.Release();
-                        break;
-                    case "-s":
-                        _payload.Alloc(1234);
-                        break;
-                }
+                _payload.Alloc(85001);
             }
         }
     }
