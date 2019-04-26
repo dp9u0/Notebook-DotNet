@@ -11,7 +11,7 @@ namespace CLR {
         protected override void RunCore() {
             //RunRunner<PInvokeRunner>();
             //RunRunner<HandleCollectorRunner>();
-            RunRunner<LoadAssemblyTwiceRunner>();
+            RunRunner<UsingBindingHandleRunner>();
         }
     }
 }

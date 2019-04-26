@@ -184,4 +184,26 @@ DefaultDomain : 其他程序集包括 System.dll
 
 ### Reflect
 
+程序集加载
+
+1. 使用某个类型时,CLR 根据 Assembly PE头部定义的TypeRef和 AssemblyRef 查找引用了哪个 Assembly 自动加载文件(强弱命名)
+2. 通过 Assembly.Load 加载
+
+* 构造
+  * System.Activator.CreateInstance / CreateInstanceFrom
+  * System.AppDomain’s methods  CreateInstance, CreateInstanceAndUnwrap, CreateInstanceFrom, and CreateInstanceFromAndUnwrap.
+  * System.Reflection.ConstructorInfo’s Invoke instance method
+* System.Reflection.MemberInfo
+  * System.TypeInfo : A nested type is a member
+  * System.Reflection.FieldInfo
+  * System.Reflection.MethodBase
+    * System.Reflection.ContructorInfo
+    * System.Reflection.MethodInfo
+  * System.Reflection.PropertyInfo
+  * System.Reflection.EventInfo
+
+[Using Binding Handles](..\src\CLR\UsingBindingHandleRunner.cs)
+
 ### Exception
+
+Contract
