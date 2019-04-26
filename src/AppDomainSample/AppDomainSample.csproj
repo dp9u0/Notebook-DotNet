@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B8E17AF6-4D1B-449B-A7AB-17F6AF980A7C}</ProjectGuid>
+    <ProjectGuid>{18194DFA-1117-42F0-BFA8-FCDB89E5DB78}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ClrSample.NetFramework</RootNamespace>
-    <AssemblyName>ClrSample.NetFramework</AssemblyName>
+    <RootNamespace>AppDomainSample</RootNamespace>
+    <AssemblyName>AppDomainSample</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -22,7 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,12 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ClrSample.Lib\ClrSample.Lib.csproj">
-      <Project>{31d67810-c44b-4ecf-8184-ee113d041491}</Project>
-      <Name>ClrSample.Lib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

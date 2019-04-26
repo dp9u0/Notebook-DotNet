@@ -6,7 +6,12 @@
   * [Runtime](#runtime)
     * [Managed Code](#managed-code)
     * [Managed Memory](#managed-memory)
-    * [Memory Usage](#memory-usage)
+    * [AppDomain](#appdomain)
+      * [CLR启动与寄宿](#clr%E5%90%AF%E5%8A%A8%E4%B8%8E%E5%AF%84%E5%AE%BF)
+      * [AppDomains](#appdomains)
+      * [跨AppDomain访问](#%E8%B7%A8appdomain%E8%AE%BF%E9%97%AE)
+    * [Reflect](#reflect)
+    * [Exception](#exception)
 
 ## Metadata  
 
@@ -76,13 +81,44 @@ Stack
 
 Heap
 
+* Loader Heap: contains CLR structures and the type system , every Domain has a different loader heap
+  * High Frequency Heap: statics, MethodTables, FieldDescs, interface map
+  * Low Frequency Heap: EEClass, ClassLoader and lookup tables
+  * Stub Heap: stubs for CAS, COM wrappers, PInvoke
+
+GC Heap is shared among app-domains and GC will work only on that
+
+* GC Heap: user allocated heap memory private to the app
+  * Small Object Heap : Gen 0 1 2
+  * Large Object Heap: memory allocations that require more than 85k bytes
+* JIT Code Heap: memory allocated by mscoreee (Execution Engine) and the JIT compiler for managed code
+* Process/Base Heap: interop/unmanaged allocations, native memory, etc
+
+CLR Heap 结构:
+
+![Memory Usage](../img/domain.gif)
+
+一个对象的信息实际分布在多个Heap 中,GCHeap Method Table :
+
+![Memory Usage](../img/eestack.gif)
+
+一个对象的信息实际分布在多个Heap 中, SyncBlockEntryTable 以及 SyncBlock 不属于托管堆,属于CLR 内部非托管堆
+
+![Memory Usage](../img/eeheap.gif)
+
 托管堆上的对象都有类型对象指针,同步块索引
 
 GetType 其实利用了类型对象指针
 
+Method Table 结构 :
+
+![Memory Usage](../img/methodtable.gif)
+
+![Memory Usage](../img/methoddesc.gif)
+
 * GC
 
-回收策略 : 可达图 : 标记对象不可达, 从根对象开始遍历如果能访问到则标记为可达,最后不可达的选择清除.
+回收策略 : 可达图 ,标记对象不可达, 从根对象开始遍历如果能访问到则标记为可达,最后不可达的选择清除.
 
 清除后会进行 compact,整理内存碎片
 
@@ -121,35 +157,31 @@ GC 提供了很多 API 可以用于协助 监控以及干预GC
 3. ReRegisterForFinalize SuppressFinalize 终结队列 [Demo](../src/CLR/GCNotification.cs)
 4. GCHandler fix WeekReference [Demo](../src/CLR/GCHandlerRunner.cs) WeakReference 实际是对 GCHandler 的封装
 
-### Memory Usage
+### AppDomain
 
-* Loader Heap: contains CLR structures and the type system , every Domain has a different loader heap
-  * High Frequency Heap: statics, MethodTables, FieldDescs, interface map
-  * Low Frequency Heap: EEClass, ClassLoader and lookup tables
-  * Stub Heap: stubs for CAS, COM wrappers, PInvoke
+#### CLR启动与寄宿
 
-GC Heap is shared among app-domains and GC will work only on that
+`nt -> mscoree(shim) -> clr -> managed code`
 
-* GC Heap: user allocated heap memory private to the app
-  * Small Object Heap : Gen 0 1 2
-  * Large Object Heap: memory allocations that require more than 85k bytes
-* JIT Code Heap: memory allocated by mscoreee (Execution Engine) and the JIT compiler for managed code
-* Process/Base Heap: interop/unmanaged allocations, native memory, etc
+#### AppDomains
 
-CLR Heap 结构:
+AppDomain 可以看做轻量的被CLR托管的进程.
 
-![Memory Usage](../img/domain.gif)
+SystemDomain
 
-一个对象的信息实际分布在多个Heap 中,GCHeap Method Table :
+SharedDomain : mscorlib
 
-![Memory Usage](../img/eestack.gif)
+DefaultDomain : 其他程序集包括 System.dll
 
-一个对象的信息实际分布在多个Heap 中, SyncBlockEntryTable 以及 SyncBlock 不属于托管堆,属于CLR 内部非托管堆
+隔离!!!
 
-![Memory Usage](../img/eeheap.gif)
+#### 跨AppDomain访问
 
-Method Table 结构 :
+[跨AppDomain访问](..\src\AppDomainSample\AppDomainRunner.cs)
 
-![Memory Usage](../img/methodtable.gif)
+* MarshalByRefObject (MarshalByRef,Proxy)
+* Serializable (MarshalByValue)
 
-![Memory Usage](../img/methoddesc.gif)
+### Reflect
+
+### Exception

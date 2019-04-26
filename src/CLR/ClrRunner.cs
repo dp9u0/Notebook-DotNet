@@ -12,7 +12,7 @@ namespace CLR {
             new AllILCodeRunner().Run();
             //RunRunner<PInvokeRunner>();
             //RunRunner<HandleCollectorRunner>();
-            RunRunner<GCHandlerRunner>();
+            RunRunner<ExceptionRunner>();
         }
     }
 }
