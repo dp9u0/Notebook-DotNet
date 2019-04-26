@@ -1,9 +1,9 @@
 ﻿using Common;
 
-namespace Thread {
+namespace ThreadSample {
     public class ThreadRunner : Runner {
         protected override void RunCore() {
-           
+            RunRunner<VolatileRunner>();
         }
     }
 }
