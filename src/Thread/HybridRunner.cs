@@ -1,9 +1,10 @@
 ﻿using Common;
+using System;
 
 namespace ThreadSample {
-    public class ThreadRunner : Runner {
+    class HybridRunner : Runner {
         protected override void RunCore() {
-            RunRunner<LockPerformanceRunner>();
+           
         }
     }
 }
