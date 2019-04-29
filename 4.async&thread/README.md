@@ -1,6 +1,6 @@
-# async parallel thread
+# 多线程与异步与并行
 
-* [async parallel thread](#async-parallel-thread)
+* [多线程与异步与并行](#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%BC%82%E6%AD%A5%E4%B8%8E%E5%B9%B6%E8%A1%8C)
   * [thread](#thread)
   * [synchronization](#synchronization)
     * [Volatile](#volatile)
@@ -11,8 +11,11 @@
     * [More about Monitor](#more-about-monitor)
     * [异步模式构造](#%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F%E6%9E%84%E9%80%A0)
     * [线程安全集合](#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%9B%86%E5%90%88)
-  * [parallel](#parallel)
   * [async](#async)
+    * [ThreadPool](#threadpool)
+    * [任务](#%E4%BB%BB%E5%8A%A1)
+    * [异步 I/O](#%E5%BC%82%E6%AD%A5-io)
+  * [parallel](#parallel)
 
 ## thread
 
@@ -34,6 +37,8 @@
 死锁浪费内存,活锁即浪费内存也浪费CPU.
 
 ## synchronization
+
+线程同步问题
 
 ### Volatile
 
@@ -150,9 +155,7 @@ Exit 时,会释放同步块索引,如果有线程在等待该锁,还需要通过
 * CountdownEvent 底层使用了 ManualResetEventSlim 行为与 Semaphore相反
 * Barrier : 线程完成一阶段后 斯奥用 SignalAndWait 挂起,等待所有线程都完成后,再进行下一阶段.
 
-```cs
-// TODO: DEMO NEEDED
-```
+[Barrier](../src/Thread/BarrierRunner.cs)
 
 ### Singleton
 
@@ -186,6 +189,18 @@ Monitor.Wait 以及 Monitor.Pulse
 * ConcurrentStack : Interlocked
 * ConcurrentBag : 多个 list ,每个线程一个
 
+## async
+
+通过线程/线程池系统调用,将需要执行的操作交给其他线程(也可以是其他进程甚至是内核)上执行(例如IO,密集计算等),当前线程继续执行其他操作.当操作执行完成,通过回调等方式通知主线程.上述操作称为异步.
+
+### ThreadPool
+
+[ThreadPool](../src/Thread/ThreadPoolRunner.cs)
+
+### 任务
+
+### 异步 I/O
+
 ## parallel
 
-## async
+.Net Parallel 内部使用了 Task,对数据处理提供并行操作.

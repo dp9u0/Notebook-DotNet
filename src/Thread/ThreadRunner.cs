@@ -3,7 +3,7 @@
 namespace ThreadSample {
     public class ThreadRunner : Runner {
         protected override void RunCore() {
-            RunRunner<LazyRunner>();
+            RunRunner<BarrierRunner>();
         }
     }
 }
