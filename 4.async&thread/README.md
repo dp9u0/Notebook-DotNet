@@ -138,6 +138,15 @@ Exit 时,会释放同步块索引,如果有线程在等待该锁,还需要通过
 * CountdownEvent 底层使用了 ManualResetEventSlim 行为与 Semaphore相反
 * Barrier
 
+### Singleton
+
+[Singleton](../src/Thread/SingletonRunner.cs)
+
+* Lazy
+* LazyInitializer
+
+[Lazy&LazyInitializer](../src/Thread/LazyRunner.cs)
+
 ## async
 
 ## parallel
