@@ -17,10 +17,10 @@ namespace CLR {
             protected virtual void Dispose(bool disposing) {
                 if (!disposedValue) {
                     if (disposing) {
-                        // TODO: 释放托管对象
+                        // 释放托管对象
                     }
-                    // TODO: 释放未托管的对象
-                    // TODO: 大型字段设置为 null
+                    // 释放未托管的对象
+                    // 大型字段设置为 null
                     disposedValue = true;
                 }
             }

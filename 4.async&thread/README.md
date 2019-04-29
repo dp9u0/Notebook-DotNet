@@ -1,8 +1,20 @@
 # async parallel thread
 
-## thread
+* [async parallel thread](#async-parallel-thread)
+  * [thread](#thread)
+  * [synchronization](#synchronization)
+    * [Volatile](#volatile)
+    * [用户模式构造](#%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F%E6%9E%84%E9%80%A0)
+    * [内核模式构造](#%E5%86%85%E6%A0%B8%E6%A8%A1%E5%BC%8F%E6%9E%84%E9%80%A0)
+    * [混合模式构造](#%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E6%9E%84%E9%80%A0)
+    * [Singleton](#singleton)
+    * [More about Monitor](#more-about-monitor)
+    * [异步模式构造](#%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F%E6%9E%84%E9%80%A0)
+    * [线程安全集合](#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%9B%86%E5%90%88)
+  * [parallel](#parallel)
+  * [async](#async)
 
-### 基本概念
+## thread
 
 * CLR线程与OS线程:等同
 * 线程优先级
@@ -21,9 +33,9 @@
 
 死锁浪费内存,活锁即浪费内存也浪费CPU.
 
-### 线程同步
+## synchronization
 
-#### Volatile
+### Volatile
 
 [Demo](../src/Thread/VolatileRunner.cs)
   
@@ -38,7 +50,7 @@
   1. a = a + a ,如果 a 添加了 volatile 修饰,那么每次将会读取内存2次.
   2. out/ref/in 参数不支持 volatile
 
-#### 用户模式构造
+### 用户模式构造
 
 * 用户模式构造 互锁/自旋
   * SpinWait() : 仅在超线程CPU上切换到另外一个线程,如果不存在超线程则执行nop. 这个是CPU级别的而不是OS级别的调度.  
@@ -61,7 +73,7 @@ Interlocked 实际是do while...
 
 当然用户模式构造也会形成死锁(`deadlock`).
 
-#### 内核模式构造
+### 内核模式构造
 
 内核模式构造会将线程同步调度权交给内核,如果线程同步资源可用,会主动调度当前线程,否则当前线程将一直处于等待状态.
 
@@ -108,7 +120,7 @@ Event 和 Semaphore 都属于信号量的范畴,但是底层Win32API却不一样
 
 [Demo](../src/Thread/SimpleMutex.cs)
 
-#### 混合模式构造
+### 混合模式构造
 
 在进入内核模式构造之前,先尝试通过 Spin 的方式尝试自旋等待一段时间再进入内核模式构造.
 
@@ -136,7 +148,11 @@ Exit 时,会释放同步块索引,如果有线程在等待该锁,还需要通过
 
 * ReaderWriterLockSlim : 读写锁
 * CountdownEvent 底层使用了 ManualResetEventSlim 行为与 Semaphore相反
-* Barrier
+* Barrier : 线程完成一阶段后 斯奥用 SignalAndWait 挂起,等待所有线程都完成后,再进行下一阶段.
+
+```cs
+// TODO: DEMO NEEDED
+```
 
 ### Singleton
 
@@ -147,6 +163,29 @@ Exit 时,会释放同步块索引,如果有线程在等待该锁,还需要通过
 
 [Lazy&LazyInitializer](../src/Thread/LazyRunner.cs)
 
-## async
+### More about Monitor
+
+Monitor.Wait 以及 Monitor.Pulse
+
+[Monitor](../src/Thread/MonitorRunner.cs)
+
+### 异步模式构造
+
+当出现多线程需要同步时,常见的用法是使用上述锁,Event,信号量等方式,阻塞线程,等待资源可用.
+
+这种模式会出现: 上下文切换,当锁释放,会有很多线程被激活并尝试获取锁,如果获取不到又会被挂起...
+
+可以换中思路 : 如果锁得不到执行可以返回并执行其他工作,等到锁可用后恢复并访问锁资源.而不是简单的等待.
+
+[AsyncLock Demo](../src/Thread/AsyncLockRunner.cs)
+
+### 线程安全集合
+
+* ConcurrentDictionary : 锁
+* ConcurrentQueue : Interlocked
+* ConcurrentStack : Interlocked
+* ConcurrentBag : 多个 list ,每个线程一个
 
 ## parallel
+
+## async
