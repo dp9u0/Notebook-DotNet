@@ -19,6 +19,7 @@
       * [任务调度器](#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%99%A8)
     * [异步 I/O](#%E5%BC%82%E6%AD%A5-io)
   * [parallel](#parallel)
+  * [timer](#timer)
 
 ## thread
 
@@ -237,3 +238,9 @@ Monitor.Wait 以及 Monitor.Pulse
 ## parallel
 
 .Net Parallel 内部使用了 Task,对数据处理提供并行操作.
+
+[.Net Parallel](../src/Thread/ParallelRunner.cs)
+
+## timer
+
+[Timer Sample](../sr/Thread/TimerRunner.cs)
