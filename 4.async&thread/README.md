@@ -13,7 +13,10 @@
     * [线程安全集合](#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%9B%86%E5%90%88)
   * [async](#async)
     * [ThreadPool](#threadpool)
+    * [CancellationToken](#cancellationtoken)
     * [任务](#%E4%BB%BB%E5%8A%A1)
+      * [任务工厂](#%E4%BB%BB%E5%8A%A1%E5%B7%A5%E5%8E%82)
+      * [任务调度器](#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%99%A8)
     * [异步 I/O](#%E5%BC%82%E6%AD%A5-io)
   * [parallel](#parallel)
 
@@ -197,7 +200,37 @@ Monitor.Wait 以及 Monitor.Pulse
 
 [ThreadPool](../src/Thread/ThreadPoolRunner.cs)
 
+### CancellationToken
+
+[CancellationToken Demo](../src/Thread/CancellationTokenRunner.cs)
+
 ### 任务
+
+* TaskCreationOptions 任务Create选项
+* TaskContinuationOptions 任务Continue选项,那种情况下才会执行 ContinueWith 的Task
+
+#### 任务工厂
+
+正常情况下 通过 Task.Run() 或者 new Task().Run() 需要提供一些参数 例如 scheduler createoption continuationoptions 等.
+
+如果有大量相同配置的 Task 需要创建,可以使用 TaskFactory 统一提供这些参数
+
+可以通过 `TaskFactory` 和 `TaskFactory<TResult>` 两个工厂实例提供.
+
+`TaskFactory` 也提供了 泛型参数方法版本的 StartNew ContinueWith 等
+
+如果确定Task都是无返回值 使用 `TaskFactory`
+
+如果确定Task都是有返回值  使用 `TaskFactory<TResult>`
+
+如果不确定是否有返回值 使用 `TaskFactory`
+
+#### 任务调度器
+
+负责 Task 的调度
+
+* ThreadPoolTaskScheduler
+* SynchronizationContextTaskScheduler : 使用 SynchronizationContext,在一个当前线程上获取 SynchronizationContext.Current,然后排队调度 Task
 
 ### 异步 I/O
 
