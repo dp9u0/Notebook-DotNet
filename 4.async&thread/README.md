@@ -2,6 +2,7 @@
 
 * [多线程与异步与并行](#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%BC%82%E6%AD%A5%E4%B8%8E%E5%B9%B6%E8%A1%8C)
   * [thread](#thread)
+  * [Context](#context)
   * [synchronization](#synchronization)
     * [Volatile](#volatile)
     * [用户模式构造](#%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F%E6%9E%84%E9%80%A0)
@@ -39,6 +40,26 @@
 `livelock` 单个线程每次尝试获取同步资源时,同步资源都被抢占(但是并没有形成死锁条件),从而导致一直无法获取同步资源而导致线程一直自旋,形成活锁(`livelock`).活锁可以通过一个负责发放令牌的主持人(内核)调度线程避免.当主持人确定该线程可以获取同步资源时,调度该线程.
 
 死锁浪费内存,活锁即浪费内存也浪费CPU.
+
+## Context
+
+线程上下文
+
+主线程 调用 ThreadPool Task 等在另外一个线程上执行代码时,会通过 ExecutionContext 将主线程上的数据流向异步线程.
+
+主要包括 `CallContext` `SecurityContext` `LogicDataContext` `SynchronizationContext` 等.
+
+主线程通过 Execution.SuppressFlow 组织数据流动,通过 RestoreFlow恢复流动.
+
+这种设计主要为 WCF,Remoting, WPF 等设计,由于 .NetCore 并没有这部分需求,因此目前是比较单一的.
+
+例如在某个线程设置数据,在同一个线程可以获取到(`IlLogicContext`),或者在Remoting调用,Task线程也可以获取到(`LogicContextData`)
+
+通过 ExecutionContext 提供的 Capture/Copy 获取主线程上下文,然后 通过 判断当前是否阻塞了数据流动 然后调用RestoreChangedContextToThread 设置 CurrentThread.ExecutionContext.
+
+SynchronizationContext : 主要提供 Post Send 执行回调代码操作给 Task ThreadPool等使用.Task检查Thread的SynCtx,如果存在则Ctx执行回调.否在就在异步线程上执行.
+
+WPF Winform 提供了 SynchronizationContext 的实现,可以调用Task接口的线程(一般是UI线程)执行callback.
 
 ## synchronization
 

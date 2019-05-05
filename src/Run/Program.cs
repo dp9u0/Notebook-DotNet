@@ -13,13 +13,13 @@ using Type;
 namespace Run {
     class Program {
         static void Main() {
-            new TypeRunner().Run();
-            new CSharpRunner().Run();
-            new ClrRunner().Run();
+            //new TypeRunner().Run();
+            //new CSharpRunner().Run();
+            //new ClrRunner().Run();
             new ThreadRunner().Run();
-            new CollectionRunner().Run();
-            new LinqRunner().Run();
-            new RuntimeCompilerRunner().Run();
+            //new CollectionRunner().Run();
+            //new LinqRunner().Run();
+            //new RuntimeCompilerRunner().Run();
         }
     }
 }
