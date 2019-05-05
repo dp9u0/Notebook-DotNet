@@ -12,7 +12,7 @@ namespace CSharp {
 
 
             Console.WriteLine("测试2开始:{0}", Thread.CurrentThread.ManagedThreadId);
-            SyncMethodCallAsyncWork(0, false);
+            SyncMethodCallAsyncWork(2, false);
             Console.WriteLine("测试2结束:{0}", Thread.CurrentThread.ManagedThreadId);
 
 
@@ -22,7 +22,7 @@ namespace CSharp {
             //这样的调用方式是没法等待的
             //开始任务后 直接开始执行后面的代码
             //AsyncMethod 依旧在执行 不过当前线程不会等待执行完成
-            var task = AsyncMethodCallAsyncWork(0, false);
+            var task = AsyncMethodCallAsyncWork(3, false);
             Console.WriteLine("测试3结束(其实还没结束):{0}", Thread.CurrentThread.ManagedThreadId);
 
             while (!task.IsCompleted) {
@@ -30,12 +30,12 @@ namespace CSharp {
             Console.WriteLine("异常测试:{0}", Thread.CurrentThread.ManagedThreadId);
 
             Console.WriteLine("测试4开始:{0}", Thread.CurrentThread.ManagedThreadId);
-            SyncMethodCallSyncWork(0, true);
+            SyncMethodCallSyncWork(4, true);
             Console.WriteLine("测试4结束:{0}", Thread.CurrentThread.ManagedThreadId);
 
 
             Console.WriteLine("测试5开始:{0}", Thread.CurrentThread.ManagedThreadId);
-            SyncMethodCallAsyncWork(0, true);
+            SyncMethodCallAsyncWork(5, true);
             Console.WriteLine("测试5结束:{0}", Thread.CurrentThread.ManagedThreadId);
 
 
@@ -46,7 +46,7 @@ namespace CSharp {
             //开始任务后 直接开始执行后面的代码
             //AsyncMethod 依旧在执行 不过当前线程不会等待执行完成
             // ReSharper disable once UnusedVariable
-            var task2 = AsyncMethodCallAsyncWork(0, true);
+            var task2 = AsyncMethodCallAsyncWork(6, true);
             Console.WriteLine("测试6结束(其实还没结束):{0}", Thread.CurrentThread.ManagedThreadId);
 
             Console.ReadKey();
@@ -134,7 +134,7 @@ namespace CSharp {
                 Console.WriteLine("耗时操作{0}:{1}", i, Thread.CurrentThread.ManagedThreadId);
                 val++;
             }
-            Console.WriteLine("进入同步工作:{0}", Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine("退出同步工作:{0}", Thread.CurrentThread.ManagedThreadId);
             return val;
         }
 

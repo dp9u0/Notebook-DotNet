@@ -235,6 +235,18 @@ Monitor.Wait 以及 Monitor.Pulse
 
 ### 异步 I/O
 
+同步操作模型: 请求 挂起 唤醒 执行
+
+异步操作模型: 请求 释放线程 启动线程执行回调
+
+异步操作及时将线程内存线程上下文等归还给OS,避免同步请求阻塞还会一直占有这部分内容.
+
+异步关键点在于及时释放线程而不是线程阻塞.
+
+c# 关键字 async 和 await , 编译器或生成状态机用于将 await xxx 转换成异步任务代码.
+
+关键类 `Awaiter` `IAsyncStateMachine.MoveNext`
+
 ## parallel
 
 .Net Parallel 内部使用了 Task,对数据处理提供并行操作.
