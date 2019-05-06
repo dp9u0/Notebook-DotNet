@@ -43,6 +43,8 @@
 * IEnumerable -> Enumerable (`Func`,`Action`)
 * IQueryable -> Queryable(`Expression` `Expression<TDelegate>`)
 
+[Simple Linq Demo](../src/Linq/SimpleLinqToSqlRunner.cs)
+
 ## Emit
 
 ## Expression

@@ -16,9 +16,9 @@ namespace Run {
             //new TypeRunner().Run();
             //new CSharpRunner().Run();
             //new ClrRunner().Run();
-            new ThreadRunner().Run();
+            //new ThreadRunner().Run();
             //new CollectionRunner().Run();
-            //new LinqRunner().Run();
+            new LinqRunner().Run();
             //new RuntimeCompilerRunner().Run();
         }
     }
