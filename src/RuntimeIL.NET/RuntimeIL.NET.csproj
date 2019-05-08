@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CallSite.cs" />
     <Compile Include="IL_001.cs" />
     <Compile Include="IL_002.cs" />
     <Compile Include="IL_003.cs" />
