@@ -47,4 +47,30 @@
 
 ## Emit
 
+Emit 是对 IL 层的封装.允许通过ILCode 运行阶段生成托管代码.
+
+* AssemblyBuilder ModuleBuilder TypeBuilder MethodBuilder
+* DynamicMethod
+* ILGenerator
+
+[Emit Demo](../src/RuntimeIL.NET/IL_001.cs)
+
+[Emit Demo](../src/RuntimeIL.NET/IL_002.cs)
+
+[Emit Demo](../src/RuntimeIL.NET/IL_003.cs)
+
+[Emit Demo](../src/RuntimeIL.NET/IL_004.cs)
+
+[Emit Demo](../src/RuntimeIL.NET/IL_005.cs)
+
+[Emit Demo](../src/RuntimeIL.NET/IL_006.cs)
+
 ## Expression
+
+Func<> -(Compiler/Expression&Expression.Lambda)-> Expression<Func<>>/LambdaExpression -.Compiner()-> Func
+
+Lambda表达式生成的委托 经过编译器生成将强类型化的 Lambda 表达式表示为表达式树形式的数据结构(Expression<Func<>> / LambdaExpression).
+
+这时候可以通过 Compile 编译成 委托供执行
+
+[Expression Demo](../src/RuntimeIL.NET/Test.cs)

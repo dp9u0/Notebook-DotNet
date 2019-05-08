@@ -18,8 +18,8 @@ namespace Run {
             //new ClrRunner().Run();
             //new ThreadRunner().Run();
             //new CollectionRunner().Run();
-            new LinqRunner().Run();
-            //new RuntimeCompilerRunner().Run();
+            //new LinqRunner().Run();
+            new RuntimeCompilerRunner().Run();
         }
     }
 }
