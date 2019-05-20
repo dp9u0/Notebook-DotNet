@@ -79,6 +79,7 @@ WPF Winform 提供了 SynchronizationContext 的实现,可以调用Task接口的
 
   1. a = a + a ,如果 a 添加了 volatile 修饰,那么每次将会读取内存2次.
   2. out/ref/in 参数不支持 volatile
+  3. 局部变量不支持 volatile (Thread.VolatileRead/Write) : 通过 `Thread.MemoryBarrier` 保证 Thread.MemoryBarrier 前后代码不会发生优化重排.
 
 ### 用户模式构造
 
