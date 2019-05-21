@@ -1,5 +1,11 @@
 # ASP.NET
 
+* [ASP.NET](#aspnet)
+  * [IIS](#iis)
+  * [HttpApplication](#httpapplication)
+  * [Managed Application Lifecycle](#managed-application-lifecycle)
+  * [Asp.Net Mvc Execute](#aspnet-mvc-execute)
+
 ## IIS
 
 * IIS5 : inetinfo.exe(aspnet_isapi.dll) -> aspnet_wp.exe(clr)
@@ -35,3 +41,9 @@ HttpApplication 处理请求过程.
 | UpdateRequestCache,PostUpdateRequestCache          | 处理 Request 得到的 Response 保存到缓存    |
 | LogRequest,PostLogRequest                          | Request 进程日志记录                       |
 | EndRequest                                         | 整个 Request 处理完成                      |
+
+## Managed Application Lifecycle
+
+## Asp.Net Mvc Execute
+
+![Asp.Net Mvc Execute](../img/ASP.NET-MVC-Execute.png)
