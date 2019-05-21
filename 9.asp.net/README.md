@@ -1,12 +1,24 @@
 # ASP.NET
 
 * [ASP.NET](#aspnet)
-  * [IIS](#iis)
-  * [HttpApplication](#httpapplication)
-  * [Managed Application Lifecycle](#managed-application-lifecycle)
-  * [Asp.Net Mvc Execute](#aspnet-mvc-execute)
+  * [Hosting](#hosting)
+    * [IIS](#iis)
+    * [HttpApplication](#httpapplication)
+  * [ASP.NET MVC](#aspnet-mvc)
+    * [ASP.NET MVC Overview](#aspnet-mvc-overview)
+    * [Route](#route)
+    * [Controller](#controller)
+    * [Model](#model)
+    * [Action](#action)
+    * [View](#view)
+  * [ASP.NET WebForm](#aspnet-webform)
+  * [Asp.Net WebApi](#aspnet-webapi)
 
-## IIS
+## Hosting
+
+非托管代码 (IIS) 和 托管代码(ASP.NET) 是如何打通的
+
+### IIS
 
 * IIS5 : inetinfo.exe(aspnet_isapi.dll) -> aspnet_wp.exe(clr)
 * IIS6 : HTTP.sys -> svchost.exe(w3svc) -> w3wp.exe(aspnet_isapi.dll,clr), 改进:
@@ -24,7 +36,12 @@
 
 ![IIS7](../img/iis-architecture.png)
 
-## HttpApplication
+### HttpApplication
+
+TODO: 待补充:
+
+1. IIS 如何通过 ISAPIRuntime 和 PipelineRuntime 创建 Managed Application
+2. Managed Application 的生命周期
 
 HttpApplication 处理请求过程.
 
@@ -42,8 +59,24 @@ HttpApplication 处理请求过程.
 | LogRequest,PostLogRequest                          | Request 进程日志记录                       |
 | EndRequest                                         | 整个 Request 处理完成                      |
 
-## Managed Application Lifecycle
+## ASP.NET MVC
 
-## Asp.Net Mvc Execute
+### ASP.NET MVC Overview
+
+ASP.NET MVC 如何处理一次 ASP.NET 请求的
 
 ![Asp.Net Mvc Execute](../img/ASP.NET-MVC-Execute.png)
+
+### Route
+
+### Controller
+
+### Model
+
+### Action
+
+### View
+
+## ASP.NET WebForm
+
+## Asp.Net WebApi
