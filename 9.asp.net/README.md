@@ -69,6 +69,28 @@ ASP.NET MVC 如何处理一次 ASP.NET 请求的
 
 ### Route
 
+* RouteTable
+  * Routes
+* RouteCollection
+  * RouteExistingFiles : 如果存在物理文件匹配 Request URL,是否还对该 URL 实施路由,默认为 False.
+  * Add() : add Route
+  * Ignore() : ignore url
+  * GetRouteData() : HttpContext -> RouteData,实际`foreach in this`调用Route 同名方法,用于获取 Handler 处理 Request
+  * GetVirtualPath() : HttpContext + RouteCollection + values -> VirtualPathData,实际`foreach in this`调用Route 同名方法,用于Redirect等功能
+* Route
+  * DataTokens : DataTokens,自定义变量,生成 RouteData 时使用
+  * Default : Default Values,Url 中变量默认值. 生成 RouteData时,(如果Url没有解析出变量情况下)使用
+  * Constraints : Route 约束. 影响到是否匹配 Url.
+* RouteData
+  * Values  : Url 中解析出的变量
+  * DataTokens : 自定义变量
+  * RouteHandler : 路由Handler,用于获取 IHttpHandler
+* RouteHandler
+  * GetHttpHandler()
+* IHttpHandler : 用于 ProcessRequest 处理请求
+  * ProcessRequest()
+* VirtualPathData
+
 ### Controller
 
 ### Model

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Web;
+using System.Web.Routing;
 
 namespace asp.net
 {
@@ -6,22 +8,29 @@ namespace asp.net
     public partial class Weather : System.Web.UI.Page
     {
 
+        protected string VirtualPath1 = "";
+        protected string VirtualPath2 = "";
+        protected string VirtualPath3 = "";
+        protected string VirtualPath4 = "";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            //StringBuilder sb = new StringBuilder();
-            //sb.Append(string.Format("Route: {0}" + "<br/>", this.RouteData.Route.GetType().FullName));
-            //sb.Append(string.Format("RouteHandler: {0}" + "<br/>", this.RouteData.RouteHandler.GetType().FullName));
-            //sb.Append("Variables" + "<br/>");
-            //foreach (var variable in this.RouteData.Values)
-            //{
-            //    sb.Append(string.Format("{0}{1}: {2}" + "<br/>", "&nbsp;&nbsp;&nbsp;&nbsp;", variable.Key, variable.Value));
-            //}
-            //sb.Append("DataTokens" + "<br/>");
-            //foreach (var variable in this.RouteData.DataTokens)
-            //{
-            //    sb.Append(string.Format("{0}{1}: {2}" + "<br/>", "&nbsp;&nbsp;&nbsp;&nbsp;", variable.Key, variable.Value));
-            //}
-            //this.Response.Write(sb.ToString());
+            var routeData = new RouteData();
+            var requestContext = new RequestContext
+            {
+                HttpContext = new HttpContextWrapper(HttpContext.Current), RouteData = routeData
+            };
+            var values = new RouteValueDictionary();
+
+            VirtualPath1 = RouteTable.Routes.GetVirtualPath(null, values)?.VirtualPath;
+            VirtualPath2 = RouteTable.Routes.GetVirtualPath(requestContext, values)?.VirtualPath;
+            routeData.Values.Add("areaCode", "0001");
+            routeData.Values.Add("days", "1");
+            VirtualPath3 = RouteTable.Routes.GetVirtualPath(requestContext, values)?.VirtualPath;
+
+            values.Add("days", "2");
+            values.Add("areaCode", "0002");
+            VirtualPath4 = RouteTable.Routes.GetVirtualPath(requestContext, values)?.VirtualPath;
         }
 
     }

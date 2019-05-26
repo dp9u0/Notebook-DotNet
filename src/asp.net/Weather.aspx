@@ -12,7 +12,9 @@
             background-color: #fff;
         }
 
-        li { list-style-type: none; }
+        li {
+            list-style-type: none;
+        }
 
         ul {
             padding: 0px;
@@ -21,7 +23,7 @@
     </style>
     <script src="/jquery-1.4.1.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $("td:even")
                 .css("text-align", "right")
                 .css("vertical-align", "top")
@@ -30,45 +32,69 @@
     </script>
 </head>
 <body>
-<form id="form1" runat="server">
-    <div>
-        <table>
-            <tr>
-                <td>Router:</td>
-                <td><%= RouteData.Route != null ? RouteData.Route.GetType().FullName : "" %></td>
-            </tr>
-            <tr>
-                <td>RouteHandler:</td>
-                <td><%= RouteData.RouteHandler != null ? RouteData.RouteHandler.GetType().FullName : "" %></td>
-            </tr>
-            <tr>
-                <td>Values:</td>
-                <td>
-                    <ul>
-                        <% foreach (var variable in RouteData.Values)
-                           { %>
+    <form id="form1" runat="server">
+        <div>
+            <table>
+                <tr>
+                    <td>Router:</td>
+                    <td><%= RouteData.Route != null ? RouteData.Route.GetType().FullName : "" %></td>
+                </tr>
+                <tr>
+                    <td>RouteHandler:</td>
+                    <td><%= RouteData.RouteHandler != null ? RouteData.RouteHandler.GetType().FullName : "" %></td>
+                </tr>
+                <tr>
+                    <td>Values:</td>
+                    <td>
+                        <ul>
+                            <% foreach (var variable in RouteData.Values)
+                                { %>
                             <li>
                                 <%= variable.Key %>=<%= variable.Value %>
                             </li>
-                        <% } %>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>DataTokens:</td>
-                <td>
-                    <ul>
-                        <% foreach (var variable in RouteData.DataTokens)
-                           { %>
+                            <% } %>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>DataTokens:</td>
+                    <td>
+                        <ul>
+                            <% foreach (var variable in RouteData.DataTokens)
+                                { %>
                             <li>
                                 <%= variable.Key %>=<%= variable.Value %>
                             </li>
-                        <% } %>
-                    </ul>
-                </td>
-            </tr>
-        </table>
-    </div>
-</form>
+                            <% } %>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>VirtualPath1:</td>
+                    <td>
+                        <%= VirtualPath1%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>VirtualPath2:</td>
+                    <td>
+                        <%= VirtualPath2%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>VirtualPath3:</td>
+                    <td>
+                        <%= VirtualPath3%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>VirtualPath4:</td>
+                    <td>
+                        <%= VirtualPath4%>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
 </body>
 </html>
