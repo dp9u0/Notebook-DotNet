@@ -85,11 +85,12 @@ ASP.NET MVC 如何处理一次 ASP.NET 请求的
   * Values  : Url 中解析出的变量
   * DataTokens : 自定义变量
   * RouteHandler : 路由Handler,用于获取 IHttpHandler
-* RouteHandler
+* RouteHandler : PageRouteHandler MvcRouteHandler
   * GetHttpHandler()
-* IHttpHandler : 用于 ProcessRequest 处理请求
+* IHttpHandler : 用于 ProcessRequest 处理请求,Page(asp.net) MvcHandler(asp.net mvc)
   * ProcessRequest()
-* VirtualPathData
+* VirtualPathData : 用于URL的生成 , UrlHelper , HtmlHelper
+* AreaRegistration : 划分区域
 
 ### Controller
 
