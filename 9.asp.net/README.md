@@ -10,7 +10,8 @@
     * [Controller](#controller)
     * [Model](#model)
     * [Action](#action)
-    * [View](#view)
+    * [ActionResult](#actionresult)
+      * [ViewResult](#viewresult)
   * [ASP.NET WebForm](#aspnet-webform)
   * [Asp.Net WebApi](#aspnet-webapi)
 
@@ -94,11 +95,23 @@ ASP.NET MVC 如何处理一次 ASP.NET 请求的
 
 ### Controller
 
+* IController/IAsyncController
+  * void Execute(RequestContext requestContext);
+* ControllerBase
+  * ViewBag : 对ViewData 的 dynamic 封装
+  * ViewData
+* Controller
+* ControllerBuilder/IControllerFactory
+
+DefaultControllerFactory 遍历通过BuildManager的静态方法GetReferencedAssemblies方法得到的编译Web应用所使用的程序集,通过反射得到所有实现了接口IController的类型,最后通过给定的Controller的名称和命名空间作为匹配条件在这个预先获取的类型列表中得到目标Controller的类型
+
 ### Model
 
 ### Action
 
-### View
+### ActionResult
+
+#### ViewResult
 
 ## ASP.NET WebForm
 
