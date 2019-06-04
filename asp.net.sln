@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asp.net.mvc", "src\asp.net.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asp.net", "src\asp.net\asp.net.csproj", "{5F26CED3-7023-4FA1-8A11-D85EF9D3B98C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asp.net.webapi", "..\repos\asp.net.webapi\asp.net.webapi.csproj", "{C144D645-BB91-4CB7-B015-14D6DCF3E004}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asp.net.webapi", "src\asp.net.webapi\asp.net.webapi.csproj", "{C144D645-BB91-4CB7-B015-14D6DCF3E004}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
